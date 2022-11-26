@@ -13203,7 +13203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2686283803724611117, guid: e6e2bde897818b94b89bb256e23c1526, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -13322,6 +13322,10 @@ PrefabInstance:
     - target: {fileID: 3787556626208041805, guid: c02760162b6ce014abb83839cb73719b, type: 3}
       propertyPath: m_Name
       value: Fireball (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787556626208041805, guid: c02760162b6ce014abb83839cb73719b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
