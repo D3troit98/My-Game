@@ -15,6 +15,10 @@ public class Health : MonoBehaviour
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRend;
 
+    [Header("Death Sound")]
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip hurtSound;
+
     private void Awake()
     {
         currentHealth = startingHealth;
@@ -31,18 +35,53 @@ public class Health : MonoBehaviour
             //player got hurt
             anim.SetTrigger("hurt");
             StartCoroutine(Invurability());
+            SoundManager.instance.PlaySound(hurtSound);
         }
         else
         {
             //player dead
             if(!dead)
             {
+               
+
+                //player
+                if(GetComponent<PlayerMovement>() != null )
+                {
+                    GetComponent<PlayerMovement>().enabled = false;
+                }
+               
+
+                //Enemy
+                if(GetComponentInParent<EnemyPatrol>() != null )
+                {
+                    GetComponentInParent<EnemyPatrol>().enabled = false;
+                }
+               
+                if(GetComponent<MeleEnemy>() != null )
+                {
+                    GetComponent<MeleEnemy>().enabled = false;
+                }
+                anim.SetBool("grounded", true);
                 anim.SetTrigger("die");
-                GetComponent<PlayerMovement>().enabled = false;
+
                 dead = true;
+                SoundManager.instance.PlaySound(deathSound);
+
             }
             
         }
+    }
+
+    public void Respawn()
+    {
+        dead = false;
+        AddHealth(startingHealth);
+        anim.ResetTrigger("die");
+        anim.Play("idle");
+        StartCoroutine(Invurability());
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponentInParent<EnemyPatrol>().enabled = true;
+        GetComponent<MeleEnemy>().enabled = true;
     }
 
     public void AddHealth(float _value)
